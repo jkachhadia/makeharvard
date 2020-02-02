@@ -10,8 +10,9 @@ import RPi.GPIO as GPIO
 import time
 import timeout_decorator
 import pyttsx3
+import pickle
 
-
+model=pickle.load(open('xgbmodel_1.py'))
 def speak():
     global ser
     tm=0
@@ -74,109 +75,109 @@ while 1:
     if input_state == False:
         speak()
         time.sleep(0.2)
-    # if (now.hour==24 and now.minute=00):
-    #     sunshine=ct
-    #     ct=0
-    # if now.minute==0:
-    #     with picamera.Picamera() as camera:
-    #         camera.start_preview()
-    #         camera.capture('0.jpg')
-    #         camera.stop_preview()
-    #     imgPath = '0.jpg'
-    #     img = cv2.imread(imgPath)
+    if (now.hour==24 and now.minute=00):
+        sunshine=ct
+        ct=0
+    if now.minute==0:
+        with picamera.Picamera() as camera:
+            camera.start_preview()
+            camera.capture('0.jpg')
+            camera.stop_preview()
+        imgPath = '0.jpg'
+        img = cv2.imread(imgPath)
 
-    #     # Resize image
-    #     scale_percent = 60 # percent of original size
-    #     width = int(img.shape[1] * scale_percent / 100)
-    #     height = int(img.shape[0] * scale_percent / 100)
-    #     dim = (width, height)
-    #     # resize image
-    #     img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-    #     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #     thresh = 200
-    #     thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-    #     total_size = width*height
-    #     white_sum = np.sum(img >= 200)
-    #     if white_sum/total_size>30:
-    #         ct=ct+1
-    # if (now.hour==9 and now.minute=00):
-    #     while 1:
-    #         if (t==1 and h==1) and p==1:
-    #             break
-    #         if ser.in_waiting>0:
-    #             line=ser.readline()
-    #             if ('Temperature' in str(line) and 'C' not in str(line)) and t==0:
-    #                 x=str(line).split(' = ')
-    #                 temp[0]=float(x[0:4])
-    #                 t=1
-    #             elif ('Humidity' in str(line) and h==0:
-    #                 x=str(line).split(' = ')
-    #                 humidity[0]=float(x)#make changes
-    #                 h=1
-    #             elif ('Pressure' in str(line)) and p==0:
-    #                 x=str(line).split(' = ')
-    #                 pressure[0]=float(x)#make changes
-    #                 p=1
+        # Resize image
+        scale_percent = 60 # percent of original size
+        width = int(img.shape[1] * scale_percent / 100)
+        height = int(img.shape[0] * scale_percent / 100)
+        dim = (width, height)
+        # resize image
+        img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        thresh = 200
+        thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
+        total_size = width*height
+        white_sum = np.sum(img >= 200)
+        if white_sum/total_size>30:
+            ct=ct+1
+    if (now.hour==9 and now.minute=00):
+        while 1:
+            if (t==1 and h==1) and p==1:
+                break
+            if ser.in_waiting>0:
+                line=ser.readline()
+                if ('Temperature' in str(line) and 'C' not in str(line)) and t==0:
+                    x=str(line).split(' = ')
+                    temp[0]=float(x[0:4])
+                    t=1
+                elif ('Humidity' in str(line) and h==0:
+                    x=str(line).split(' = ')
+                    humidity[0]=float(x)#make changes
+                    h=1
+                elif ('Pressure' in str(line)) and p==0:
+                    x=str(line).split(' = ')
+                    pressure[0]=float(x)#make changes
+                    p=1
         
-    #     with picamera.Picamera() as camera:
-    #         camera.start_preview()
-    #         camera.capture('0.jpg')
-    #         camera.stop_preview()
-    #     imgPath = '0.jpg'
-    #     img = cv2.imread(imgPath)
+        with picamera.Picamera() as camera:
+            camera.start_preview()
+            camera.capture('0.jpg')
+            camera.stop_preview()
+        imgPath = '0.jpg'
+        img = cv2.imread(imgPath)
 
-    #     # Resize image
-    #     scale_percent = 60 # percent of original size
-    #     width = int(img.shape[1] * scale_percent / 100)
-    #     height = int(img.shape[0] * scale_percent / 100)
-    #     dim = (width, height)
-    #     # resize image
-    #     img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-    #     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #     thresh = 200
-    #     thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-    #     total_size = width*height
-    #     white_sum = np.sum(img >= 200)
-    #     cloud[0]=white_sum/total_size
+        # Resize image
+        scale_percent = 60 # percent of original size
+        width = int(img.shape[1] * scale_percent / 100)
+        height = int(img.shape[0] * scale_percent / 100)
+        dim = (width, height)
+        # resize image
+        img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        thresh = 200
+        thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
+        total_size = width*height
+        white_sum = np.sum(img >= 200)
+        cloud[0]=white_sum/total_size
 
-    # if (now.hour==15 and now.minute=00):
-    #     while 1:
-    #         if (t==1 and h==1) and p==1:
-    #             break
-    #         if ser.in_waiting>0:
-    #             line=ser.readline()
-    #             if ('Temperature' in str(line) and 'C' not in str(line)) and t==0:
-    #                 x=str(line).split(' = ')
-    #                 temp[1]=float(x[0:4])
-    #                 t=1
-    #             elif ('Humidity' in str(line) and h==0:
-    #                 x=str(line).split(' = ')
-    #                 humidity[1]=float(x)#make changes
-    #                 h=1
-    #             elif ('Pressure' in str(line)) and p==0:
-    #                 x=str(line).split(' = ')
-    #                 pressure[1]=float(x)#make changes
-    #                 p=1
+    if (now.hour==15 and now.minute=00):
+        while 1:
+            if (t==1 and h==1) and p==1:
+                break
+            if ser.in_waiting>0:
+                line=ser.readline()
+                if ('Temperature' in str(line) and 'C' not in str(line)) and t==0:
+                    x=str(line).split(' = ')
+                    temp[1]=float(x[0:4])
+                    t=1
+                elif ('Humidity' in str(line) and h==0:
+                    x=str(line).split(' = ')
+                    humidity[1]=float(x)#make changes
+                    h=1
+                elif ('Pressure' in str(line)) and p==0:
+                    x=str(line).split(' = ')
+                    pressure[1]=float(x)#make changes
+                    p=1
         
-    #     with picamera.Picamera() as camera:
-    #         camera.start_preview()
-    #         camera.capture('0.jpg')
-    #         camera.stop_preview()
-    #         imgPath = '0.jpg'
-    #         img = cv2.imread(imgPath)
+        with picamera.Picamera() as camera:
+            camera.start_preview()
+            camera.capture('0.jpg')
+            camera.stop_preview()
+            imgPath = '0.jpg'
+            img = cv2.imread(imgPath)
 
-    #         # Resize image
-    #         scale_percent = 60 # percent of original size
-    #         width = int(img.shape[1] * scale_percent / 100)
-    #         height = int(img.shape[0] * scale_percent / 100)
-    #         dim = (width, height)
-    #         # resize image
-    #         img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-    #         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #         thresh = 200
-    #         thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-    #         total_size = width*height
-    #         white_sum = np.sum(img >= 200)
-    #         cloud[1]=white_sum/total_size
+            # Resize image
+            scale_percent = 60 # percent of original size
+            width = int(img.shape[1] * scale_percent / 100)
+            height = int(img.shape[0] * scale_percent / 100)
+            dim = (width, height)
+            # resize image
+            img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            thresh = 200
+            thresh, img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
+            total_size = width*height
+            white_sum = np.sum(img >= 200)
+            cloud[1]=white_sum/total_size
     
 
